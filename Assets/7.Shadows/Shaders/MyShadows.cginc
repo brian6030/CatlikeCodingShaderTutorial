@@ -39,4 +39,5 @@ struct VertexData {
 		return 0;
 	}
 #endif
+
 #endif
