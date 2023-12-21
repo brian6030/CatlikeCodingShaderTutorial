@@ -11,7 +11,7 @@ float4 _MainTex_ST, _DetailTex_ST;
 sampler2D _NormalMap, _DetailNormalMap;
 float _BumpScale, _DetailBumpScale;
 
-float4 _Metallic;
+float _Metallic;
 float _Smoothness;
 
 struct VertexData {

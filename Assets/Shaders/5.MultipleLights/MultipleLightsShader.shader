@@ -1,4 +1,4 @@
-Shader "Unlit/MyFirstShader"
+Shader "Unlit/MultipleLightsShader"
 {
     Properties{
         _Tint("Tint", Color) = (1, 1, 1, 1)

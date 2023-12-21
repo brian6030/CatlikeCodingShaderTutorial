@@ -7,7 +7,7 @@
 float4 _Tint;
 sampler2D _MainTex;
 float4 _MainTex_ST;
-float4 _Metallic;
+float _Metallic;
 float _Smoothness;
 
 struct VertexData {

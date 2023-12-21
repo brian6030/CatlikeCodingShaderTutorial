@@ -1,4 +1,4 @@
-Shader "Unlit/MyFirstShader"
+Shader "Unlit/BumpinessShader"
 {
     Properties{
         [Gmma] _Metallic ("Metallic", Range(0, 1)) = 0
