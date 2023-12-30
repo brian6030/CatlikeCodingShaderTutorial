@@ -107,19 +107,6 @@ float3 GetAlbedo (Interpolators i) {
 	return albedo;
 }
 
-float3 GetTangentSpaceNormal (Interpolators i) {
-	float3 normal = float3(0, 0, 1);
-	#if defined(_NORMAL_MAP)
-		normal = UnpackScaleNormal(tex2D(_NormalMap, i.uv.xy), _BumpScale);
-	#endif
-	#if defined(_DETAIL_NORMAL_MAP)
-		float3 detailNormal = UnpackScaleNormal(tex2D(_DetailNormalMap, i.uv.zw), _DetailBumpScale);
-		detailNormal = lerp(float3(0, 0, 1), detailNormal, GetDetailMask(i));
-		normal = BlendNormals(normal, detailNormal);
-	#endif
-	return normal;
-}
-
 void ComputeVertexLightColor (inout Interpolators i) 
 {
 	#if defined(VERTEXLIGHT_ON)
@@ -193,7 +180,8 @@ float3 BoxProjection (float3 direction, float3 position, float4 cubemapPosition,
 	return direction;
 }
 
-UnityIndirect CreateIndirectLight (Interpolators i, float3 viewDir) {
+UnityIndirect CreateIndirectLight (Interpolators i, float3 viewDir) 
+{
 	UnityIndirect indirectLight;
 	indirectLight.diffuse = 0;
 	indirectLight.specular = 0;
@@ -236,6 +224,20 @@ UnityIndirect CreateIndirectLight (Interpolators i, float3 viewDir) {
     #endif
 
 	return indirectLight;
+}
+
+float3 GetTangentSpaceNormal (Interpolators i) 
+{
+	float3 normal = float3(0, 0, 1);
+	#if defined(_NORMAL_MAP)
+		normal = UnpackScaleNormal(tex2D(_NormalMap, i.uv.xy), _BumpScale);
+	#endif
+	#if defined(_DETAIL_NORMAL_MAP)
+		float3 detailNormal = UnpackScaleNormal(tex2D(_DetailNormalMap, i.uv.zw), _DetailBumpScale);
+		detailNormal = lerp(float3(0, 0, 1), detailNormal, GetDetailMask(i));
+		normal = BlendNormals(normal, detailNormal);
+	#endif
+	return normal;
 }
 
 void InitializeFragmentNormal(inout Interpolators i) {

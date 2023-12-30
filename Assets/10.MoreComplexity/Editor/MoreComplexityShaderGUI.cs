@@ -83,19 +83,6 @@ public class MoreComplexityShaderGUI : ShaderGUI
         editor.TextureScaleOffsetProperty(detailTex);
     }
 
-    void DoSecondaryNormals()
-    {
-        MaterialProperty map = FindProperty("_DetailNormalMap");
-        EditorGUI.BeginChangeCheck();
-        editor.TexturePropertySingleLine(
-            MakeLabel(map), map,
-            map.textureValue ? FindProperty("_DetailBumpScale") : null
-        );
-        if (EditorGUI.EndChangeCheck())
-        {
-            SetKeyword("_DETAIL_NORMAL_MAP", map.textureValue);
-        }
-    }
     static GUIContent staticLabel = new GUIContent();
     static GUIContent MakeLabel(MaterialProperty property, string tooltip = null)
     {
@@ -116,13 +103,28 @@ public class MoreComplexityShaderGUI : ShaderGUI
         MaterialProperty map = FindProperty("_NormalMap");
         Texture tex = map.textureValue;
         EditorGUI.BeginChangeCheck();
-        editor.TexturePropertySingleLine(
+        editor.TexturePropertySingleLine
+        (
             MakeLabel(map), map,
             tex ? FindProperty("_BumpScale") : null
-            );
+        );
         if (EditorGUI.EndChangeCheck() && tex != map.textureValue)
         {
             SetKeyword("_NORMAL_MAP", map.textureValue);
+        }
+    }
+
+    void DoSecondaryNormals()
+    {
+        MaterialProperty map = FindProperty("_DetailNormalMap");
+        EditorGUI.BeginChangeCheck();
+        editor.TexturePropertySingleLine(
+            MakeLabel(map), map,
+            map.textureValue ? FindProperty("_DetailBumpScale") : null
+        );
+        if (EditorGUI.EndChangeCheck())
+        {
+            SetKeyword("_DETAIL_NORMAL_MAP", map.textureValue);
         }
     }
     void DoMetallic()

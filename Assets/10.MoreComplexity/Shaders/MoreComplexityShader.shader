@@ -48,7 +48,7 @@ Shader "Unlit/MoreComplexityShader"
             #pragma shader_feature _NORMAL_MAP
             #pragma shader_feature _EMISSION_MAP
             #pragma shader_feature _OCCLUSION_MAP
-            #pragma shader_feature _DETAIL_MAS
+            #pragma shader_feature _DETAIL_MASK
             #pragma shader_feature _DETAIL_ALBEDO_MAP
 			#pragma shader_feature _DETAIL_NORMAL_MAP
 
