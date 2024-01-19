@@ -7,7 +7,7 @@
 #include "AutoLight.cginc"
 
 
-float4 _Tint;
+float4 _Color;
 sampler2D _MainTex, _DetailTex, _DetailMask;
 float4 _MainTex_ST, _DetailTex_ST;
 
@@ -117,7 +117,7 @@ float GetDetailMask (Interpolators i) {
 }
 
 float3 GetAlbedo (Interpolators i) {
-	float3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Tint.rgb;
+	float3 albedo = tex2D(_MainTex, i.uv.xy).rgb * _Color.rgb;
 	#if defined (_DETAIL_ALBEDO_MAP)
 		float3 details = tex2D(_DetailTex, i.uv.zw) * unity_ColorSpaceDouble;
 		albedo = lerp(albedo, albedo * details, GetDetailMask(i));
@@ -126,7 +126,7 @@ float3 GetAlbedo (Interpolators i) {
 }
 
 float GetAlpha (Interpolators i) {
-	float alpha = _Tint.a;
+	float alpha = _Color.a;
 
 	#if !defined(_SMOOTHNESS_ALBEDO)
 		alpha *= tex2D(_MainTex, i.uv.xy).a;
