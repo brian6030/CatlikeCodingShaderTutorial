@@ -6,7 +6,7 @@ GraphicsSettings:
   serializedVersion: 15
   m_Deferred:
     m_Mode: 2
-    m_Shader: {fileID: 4800000, guid: ff9efe28cbbeb154a8c5963fac6e2b6b, type: 3}
+    m_Shader: {fileID: 4800000, guid: a87f37410cf32c640b6fe9aea35e45fa, type: 3}
   m_DeferredReflections:
     m_Mode: 0
     m_Shader: {fileID: 0}
