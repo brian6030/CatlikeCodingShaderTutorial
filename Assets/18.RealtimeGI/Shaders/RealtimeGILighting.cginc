@@ -53,9 +53,9 @@ struct VertexData {
 	float2 uv2 : TEXCOORD2;
 };
 
-struct Interpolators {
-    float4 pos  : SV_POSITION;
-    float4 uv : TEXCOORD0;
+struct InterpolatorsVertex  {
+    float4 pos : SV_POSITION;
+	float4 uv : TEXCOORD0;
     float3 normal : TEXCOORD1;
 
     #if defined(BINORMAL_PER_FRAGMENT)
@@ -74,6 +74,40 @@ struct Interpolators {
 	#endif
 
 	#if defined(LIGHTMAP_ON) || ADDITIONAL_MASKED_DIRECTIONAL_SHADOWS
+		float2 lightmapUV : TEXCOORD6;
+	#endif
+
+	#if defined(DYNAMICLIGHTMAP_ON)
+		float2 dynamicLightmapUV : TEXCOORD7;
+	#endif
+};
+
+struct Interpolators {
+	#if defined(LOD_FADE_CROSSFADE) || defined(LOD_FADE_CROSSFADE)
+		UNITY_VPOS_TYPE vpos : VPOS;
+	#else
+		float4 pos  : SV_POSITION;
+	#endif
+
+    float4 uv : TEXCOORD0;
+    float3 normal : TEXCOORD1;
+
+    #if defined(BINORMAL_PER_FRAGMENT)
+        float4 tangent : TEXCOORD2;
+    #else
+        float3 tangent : TEXCOORD2;
+	    float3 worldPos : TEXCOORD3;
+    #endif
+
+    float3 worldPos : TEXCOORD4;
+
+	UNITY_SHADOW_COORDS(5)
+
+    #if defined(VERTEXLIGHT_ON)
+		float3 vertexLightColor : TEXCOORD6;
+	#endif
+
+	#if defined(LIGHTMAP_ON)
 		float2 lightmapUV : TEXCOORD6;
 	#endif
 
@@ -196,9 +230,9 @@ float FadeShadows (Interpolators i, float attenuation) {
 	return attenuation;
 }
 
-Interpolators MyVertexProgram(VertexData v)
+InterpolatorsVertex MyVertexProgram(VertexData v)
 {
-    Interpolators i;
+    InterpolatorsVertex i;
 	UNITY_INITIALIZE_OUTPUT(Interpolators, i);
 
 	i.pos = UnityObjectToClipPos(v.vertex);
@@ -403,6 +437,10 @@ void InitializeFragmentNormal(inout Interpolators i) {
 
 FragmentOutput MyFragmentProgram(Interpolators i)
 {
+	#if defined(LOD_FADE_CROSSFADE)
+		UnityApplyDitherCrossFade(i.vpos);
+	#endif
+
 	float alpha = GetAlpha(i);
 
 	#if defined(_RENDERING_CUTOUT)

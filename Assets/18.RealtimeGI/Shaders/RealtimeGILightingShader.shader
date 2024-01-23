@@ -65,6 +65,7 @@ Shader "Custom/RealtimeGILightingShader"
             #pragma shader_feature  _ _RENDERING_CUTOUT _RENDERING_FADE _RENDERING_TRANSPARENT
 			
 			#pragma multi_compile_fog
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
 
             #pragma vertex MyVertexProgram
             #pragma fragment MyFragmentProgram
@@ -100,6 +101,7 @@ Shader "Custom/RealtimeGILightingShader"
             #pragma shader_feature  _ _RENDERING_CUTOUT _RENDERING_FADE _RENDERING_TRANSPARENT
 
             #pragma multi_compile_fog
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
 
             #pragma vertex MyVertexProgram
             #pragma fragment MyFragmentProgram
@@ -130,6 +132,7 @@ Shader "Custom/RealtimeGILightingShader"
 			#pragma shader_feature _DETAIL_NORMAL_MAP
 
             #pragma multi_compile_prepassfinal
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
 
 			#pragma vertex MyVertexProgram
 			#pragma fragment MyFragmentProgram
@@ -155,6 +158,8 @@ Shader "Custom/RealtimeGILightingShader"
             #pragma shader_feature _SMOOTHNESS_ALBEDO
             #pragma shader_feature _SEMITRANSPARENT_SHADOWS
             #pragma shader_feature _ _RENDERING_CUTOUT _RENDERING_FADE _RENDERING_TRANSPARENT
+
+            #pragma multi_compile _ LOD_FADE_CROSSFADE
             
 			#pragma vertex MyShadowVertexProgram
 			#pragma fragment MyShadowFragmentProgram
