@@ -67,7 +67,7 @@ struct Interpolators {
 	#endif
 };
 
-InterpolatorsVertex MyShadowVertexProgram (VertexData v) {
+InterpolatorsVertex  MyShadowVertexProgram (VertexData v) {
 	InterpolatorsVertex  i;
 	UNITY_SETUP_INSTANCE_ID(v);
 	UNITY_TRANSFER_INSTANCE_ID(v, i);
